@@ -22,3 +22,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+https://github.com/planetoftheweb/vue-spas/blob/02_02t/src/views/Login.vue
