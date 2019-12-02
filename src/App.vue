@@ -1,13 +1,13 @@
 <template>
   <div id="app"> 
     <Navigation/>
-    <router-view class="container" :user="user" />
+    <router-view class="container" :user="user" @logout="logout"/>
   </div>
 </template>
 
 <script>
 import Navigation from "@/components/Navigation.vue";
-//import Firebase from "firebase";
+import Firebase from "firebase";
 import db from "./db.js";
 export default {
   name: "App",
@@ -16,7 +16,23 @@ export default {
       user: null
     };
   },
+  methods: {
+    logout: function(){
+      Firebase.auth.signOut()
+      .then(()=>{
+        this.user = null;
+        this.$router.push("login");
+      });
+    }
+  },
   mounted() {
+    Firebase.auth().onAuthStateChanged(user => {
+      if(user) {
+        this.user = user.displayName;
+      }
+
+    })
+
     db.collection("users")
       .doc("YIYwaFvSdQ4Jiv5YV0cl")
       .get()
